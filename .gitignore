@@ -49,4 +49,8 @@ flycheck_*.el
 
 straight
 
+transient
+
 .cache
+
+.lsp-session*
