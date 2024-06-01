@@ -18,6 +18,9 @@
 (setq-default indicate-empty-lines t)
 (setq-default indicate-buffer-boundaries 'left)
 
+;; theme
+(load-theme 'gruvbox-dark-medium t)
+
 ;; straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
