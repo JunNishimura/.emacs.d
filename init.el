@@ -13,6 +13,11 @@
     (progn
       (set-frame-parameter nil 'alpha 95)))
 
+;; display line number
+(global-display-line-numbers-mode)
+(setq-default indicate-empty-lines t)
+(setq-default indicate-buffer-boundaries 'left)
+
 ;; straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
