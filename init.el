@@ -67,3 +67,16 @@
   (setq neo-create-file-auto-open t)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (bind-key [f8] 'neotree-toggle))
+
+;; git-gutter
+(use-package git-gutter
+  :custom
+  (git-gutter:modified-sign "~")
+  (git-gutter:added-sign "+")
+  (git-gutter:deleted-sign "-")
+  :custom-face
+  (git-gutter:modified ((t (:background "#f1fa8c"))))
+  (git-gutter:added ((t (:background "#508a7b"))))
+  (git-gutter:deleted ((t (:background "#ff79c6"))))
+  :config
+  (global-git-gutter-mode +1))
