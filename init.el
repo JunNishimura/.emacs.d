@@ -93,3 +93,13 @@
 (use-package point-undo
   :bind (("M-[" . point-undo)
          ("M-]" . point-redo)))
+
+;; company
+(use-package company
+  :config
+  (global-company-mode)
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t)
+  (setq company-transformers '(company-sort-by-occurrence)))
+
