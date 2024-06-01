@@ -37,3 +37,16 @@
   :config
   (setq auto-save-buffers-enhanced-interval 10)
   (auto-save-buffers-enhanced t))
+
+;; GitHub copilot
+(use-package copilot
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :ensure t
+  :hook
+  (prog-mode . copilot-mode)
+  :bind
+  (:map copilot-completion-map
+	("S-<tab>" . 'copilot-accept-completion)
+        ("S-TAB" . 'copilot-accept-completion)
+        ("C-TAB" . 'copilot-accept-completion-by-word)
+        ("C-<tab>" . 'copilot-accept-completion-by-word)))
