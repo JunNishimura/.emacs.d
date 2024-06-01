@@ -4,6 +4,9 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
+;; load-path
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 ;; make emacs fullscreen when to open
 (set-frame-parameter nil 'fullscreen 'maximized)
 
@@ -80,3 +83,8 @@
   (git-gutter:deleted ((t (:background "#ff79c6"))))
   :config
   (global-git-gutter-mode +1))
+
+;; point-undo
+(use-package point-undo
+  :bind (("M-[" . point-undo)
+         ("M-]" . point-redo)))
