@@ -1,9 +1,8 @@
 ;; package-initialization
 (package-initialize)
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-	("melpa" . "http://melpa.org/packages/")
-	("org" . "http://orgmode.org/elpa/")))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; make emacs fullscreen when to open
 (set-frame-parameter nil 'fullscreen 'maximized)
@@ -58,3 +57,13 @@
         ("S-TAB" . 'copilot-accept-completion)
         ("C-TAB" . 'copilot-accept-completion-by-word)
         ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; neotree
+(use-package neotree
+  :init
+  (setq-default neo-keymap-style 'concise)
+  :config
+  (setq neo-smart-open t)
+  (setq neo-create-file-auto-open t)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (bind-key [f8] 'neotree-toggle))
