@@ -1,8 +1,9 @@
 ;; package-initialization
-(package-initialize)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+(package-initialize)
 
 ;; load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -102,4 +103,29 @@
   (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t)
   (setq company-transformers '(company-sort-by-occurrence)))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
+;; lsp-mode
+(use-package lsp-mode)
+(use-package lsp-ui
+  :config
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-max-width 150)
+  (setq lsp-ui-doc-max-height 30)
+  (setq lsp-ui-peek-enable t)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+;; go-mode
+(defun go-mode-omnibus ()
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (if (not (string-match "go" compile-command))
+      (set (make-local-variable 'compile-command)
+	   "go build -v && go test -v && go vet")))
+(use-package go-mode
+  :hook
+  (go-mode . lsp-deferred)
+  (go-mode . go-mode-omnibus))
