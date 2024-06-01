@@ -7,6 +7,11 @@
 ;; load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; display setting
+(menu-bar-mode -1) ;; hide menu bar
+(tool-bar-mode -1) ;; hide tool bar
+(scroll-bar-mode -1) ;; hide scroll bar
+
 ;; make emacs fullscreen when to open
 (set-frame-parameter nil 'fullscreen 'maximized)
 
