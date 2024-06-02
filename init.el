@@ -132,9 +132,45 @@
   (go-mode . lsp-deferred)
   (go-mode . go-mode-omnibus))
 
+;; slime
 (use-package slime
   :if (file-exists-p "~/.roswell/helper.el")
   :ensure slime-company
   :init (load (expand-file-name "~/.roswell/helper.el") t)
   :custom (inferior-lisp-program "ros -Q run")
   :config (slime-setup '(slime-fancy slime-banner slime-company)))
+
+;; org-mode
+(use-package org
+  :config
+  (setq org-log-done 'time)
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+(use-package org-agenda
+  :config
+  (define-key global-map "\C-ca" 'org-agenda))
+(use-package org-capture
+  :config
+  (define-key global-map "\C-cc" 'org-capture)
+  (if (file-directory-p "~/Dropbox/org")
+      (setq org-directory "~/Dropbox/org")
+    (setq org-directory "~/org"))
+  (setq todo-path (concat org-directory "/Plans/todo.org"))
+  (setq mtg-path (concat org-directory "/Inbox/mtg.org"))
+  (setq proj-path (concat org-directory "/Projects/kintai-performance.org"))
+  (setq org-capture-templates
+	       '(("t" "Todo" entry (file+headline todo-path "Tasks")
+		 "** TODO %^{Task Title} %?\n DEADLINE: %^t\n")
+		 ("m" "Meeting" entry (file+headline mtg-path "Meetings")
+		  "** %^{Meeting Title} %^g\n %U\n")
+		 ("p" "Project" entry (file+headline proj-path "Memo")
+		  "** %^{Project Title} %^g\n")))
+  (setq org-agenda-files (list todo-path mtg-path proj-path))
+  (defun show-todo-buffer (file)
+    (interactive)
+    (if (get-buffer file)
+	(let ((buffer (get-buffer file)))
+	  (switch-to-buffer buffer)
+	  (message "%s" file))
+      (find-file file)))
+  (global-set-key (kbd "C-M-t") '(lambda () (interactive) (show-todo-buffer todo-path))))
