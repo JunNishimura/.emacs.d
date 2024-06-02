@@ -60,6 +60,8 @@
   :ensure t
   :hook
   (prog-mode . copilot-mode)
+  :config
+  (setq warning-suppress-log-types '((copilot copilot-exceeds-max-char)))
   :bind
   (:map copilot-completion-map
 	("S-<tab>" . 'copilot-accept-completion)
@@ -129,3 +131,10 @@
   :hook
   (go-mode . lsp-deferred)
   (go-mode . go-mode-omnibus))
+
+(use-package slime
+  :if (file-exists-p "~/.roswell/helper.el")
+  :ensure slime-company
+  :init (load (expand-file-name "~/.roswell/helper.el") t)
+  :custom (inferior-lisp-program "ros -Q run")
+  :config (slime-setup '(slime-fancy slime-banner slime-company)))
