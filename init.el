@@ -160,7 +160,7 @@
   (setq proj-path (concat org-directory "/Projects/kintai-performance.org"))
   (setq org-capture-templates
 	       '(("t" "Todo" entry (file+headline todo-path "Tasks")
-		 "** TODO %^{Task Title} %?\n DEADLINE: %^t\n")
+		 "** TODO %^{Task Title} [/]\n DEADLINE: %^t\n %?\n")
 		 ("m" "Meeting" entry (file+headline mtg-path "Meetings")
 		  "** %^{Meeting Title} %^g\n %U\n")
 		 ("p" "Project" entry (file+headline proj-path "Memo")
