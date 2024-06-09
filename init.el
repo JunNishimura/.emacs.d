@@ -177,7 +177,15 @@
 
 ;; window-move
 (defun counter-other-window ()
-  (interactive)
+ (interactive)
   (other-window -1))
 (global-set-key (kbd "C-;") 'other-window)
 (global-set-key (kbd "C-:") 'counter-other-window)
+
+;; tab-management
+(use-package iflipb
+  :config
+  (global-set-key (kbd "M-o") 'iflipb-next-buffer)
+  (global-set-key (kbd "M-O") 'iflipb-previous-buffer)
+  (setq iflipb-ignore-buffers (list "^[*]" "^magit"))
+  (setq iflipb-wrap-around t))
