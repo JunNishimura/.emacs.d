@@ -174,3 +174,10 @@
 	  (message "%s" file))
       (find-file file)))
   (global-set-key (kbd "C-M-t") '(lambda () (interactive) (show-todo-buffer todo-path))))
+
+;; window-move
+(defun counter-other-window ()
+  (interactive)
+  (other-window -1))
+(global-set-key (kbd "C-;") 'other-window)
+(global-set-key (kbd "C-:") 'counter-other-window)
