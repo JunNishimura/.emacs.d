@@ -192,3 +192,27 @@
 
 ;; warning
 (setq warning-minimum-level :error)
+
+;; all-the-icons
+(use-package all-the-icons
+  :demand t)
+
+;; dashboard
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  :init
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+  (setq dashboard-items '((recents  . 5)
+		     (bookmarks . 5)
+		     (projects . 5)
+		     (agenda . 5)))
+  (setq dashboard-item-shortcuts '((recents . "r")
+			      (bookmarks . "b")
+			      (projects . "p")
+			      (agenda . "a")))
+  (setq dashboard-icon-type 'all-the-icons)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t))
