@@ -27,7 +27,14 @@
 (setq-default indicate-buffer-boundaries 'left)
 
 ;; theme
-(load-theme 'gruvbox-dark-medium t)
+(setq my-theme (list 'gruvbox-dark-medium 'nord))
+(defun toggle-theme ()
+  (interactive)
+  (disable-theme (car my-theme))
+  (setq my-theme (append (cdr my-theme) (list (car my-theme))))
+  (load-theme (car my-theme) t))
+(global-set-key [f7] 'toggle-theme)
+(load-theme (car my-theme) t)
 
 ;; straight.el
 (defvar bootstrap-version)
