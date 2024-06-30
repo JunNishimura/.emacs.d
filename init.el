@@ -232,9 +232,16 @@
   (moody-replace-vc-mode)
   (setq x-underline-at-descent-line t)
   (when (eq system-type 'darwin)
-    (setq moody-slant-function 'moody-slant-apple-rgb)))
+  (setq moody-slant-function 'moody-slant-apple-rgb)))
 (use-package minions
   :config
   (minions-mode)
   (setq minions-mode-line-lighter "[+]"))
 (column-number-mode)
+
+;; ident highlight
+(use-package highlight-indentation
+  :config
+  (add-hook 'prog-mode-hook 'highlight-indentation-mode)
+  (set-face-background 'highlight-indentation-face "#3e4446")
+  (set-face-background 'highlight-indentation-current-column-face "#2b2b2b"))
