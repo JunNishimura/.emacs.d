@@ -245,3 +245,10 @@
   (add-hook 'prog-mode-hook 'highlight-indentation-mode)
   (set-face-background 'highlight-indentation-face "#3e4446")
   (set-face-background 'highlight-indentation-current-column-face "#2b2b2b"))
+
+;; volatile-highlights
+(use-package volatile-highlights
+  :hook
+  (after-init . volatile-highlights-mode)
+  :custom-face
+  (vhl/default-face ((nil (:foreground "#FF3333" :background "#FFCDCD")))))
