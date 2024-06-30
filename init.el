@@ -223,3 +223,18 @@
   (setq dashboard-icon-type 'all-the-icons)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t))
+
+;; modeline
+(use-package moody
+  :config
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (setq x-underline-at-descent-line t)
+  (when (eq system-type 'darwin)
+    (setq moody-slant-function 'moody-slant-apple-rgb)))
+(use-package minions
+  :config
+  (minions-mode)
+  (setq minions-mode-line-lighter "[+]"))
+(column-number-mode)
