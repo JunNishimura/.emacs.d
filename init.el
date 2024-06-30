@@ -252,3 +252,10 @@
   (after-init . volatile-highlights-mode)
   :custom-face
   (vhl/default-face ((nil (:foreground "#FF3333" :background "#FFCDCD")))))
+
+;; beacon 
+(use-package beacon
+  :custom
+  (beacon-color "#f1fa8c")
+  :config
+  (beacon-mode 1))
