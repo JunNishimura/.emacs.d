@@ -280,3 +280,7 @@
      ((((background dark))
        (:background "#555555555555"))
       (t (:background "#C5C8C6C8C8C6"))) :group 'minimap)))
+
+(use-package golden-ratio
+  :config
+  (golden-ratio-mode 1))
