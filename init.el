@@ -257,7 +257,7 @@
 (use-package beacon
   :custom
   (beacon-color "#f1fa8c")
-  :config
+p  :config
   (beacon-mode 1))
 
 ;; rainbow-delimiters
@@ -266,48 +266,17 @@
   (prog-mode . rainbow-delimiters-mode))
 
 ;; minimap
-;; (use-package minimap
-;;   :commands
-;;   (minimap-create minimap-kill minimap-bufname)
-;;   :custom
-;;   (minimap-major-modes '(prog-mode))
-;;   (minimap-window-location 'right)
-;;   (minimap-update-delay 0.2)
-;;   (minimap-minimum-width 20)
-;;   :bind
-;;   ("C-c m" . jun/toggle-minimap)
-;;   :preface
-;;   (defun jun/toggle-minimap ()
-;;     "Toggle minimap for current buffer."
-;;     (interactive)
-;;     (if (null (minimap-bufname))
-;; 	(minimap-create)
-;;       (minimap-kill)))
-;;   :config
-;;   (custom-set-faces
-;;    '(minimap-active-region-background
-;;      ((((background dark))
-;;        (:background "#555555555555"))
-;;       (t (:background "#C5C8C6C8C8C6"))) :group 'minimap)))
-  (use-package minimap
-    :commands
-    (minimap-create minimap-kill minimap-active-current-buffer-p)
-    :custom
-    (minimap-major-modes '(prog-mode))
-    (minimap-window-location 'right)
-    (minimap-update-delay 0.2)
-    (minimap-minimum-width 20)
-    :bind
-    ("C-c m" . toggle-minimap)
-    :preface
-    (defun toggle-minimap ()
-      "Toggle minimap for current buffer."
-      (interactive)
-      (if (minimap-active-current-buffer-p)
-	  (minimap-kill)
-	(minimap-create)))
-    :config
-    (custom-set-faces
-     '(minimap-active-region-background
-      ((((background dark)) (:background "#555555555555"))
-    (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
+(use-package minimap
+  :custom
+  (minimap-major-modes '(prog-mode))
+  (minimap-window-location 'right)
+  (minimap-update-delay 0.2)
+  (minimap-minimum-width 20)
+  :bind
+  ("C-c m" . minimap-mode)
+  :config
+  (custom-set-faces
+   '(minimap-active-region-background
+     ((((background dark))
+       (:background "#555555555555"))
+      (t (:background "#C5C8C6C8C8C6"))) :group 'minimap)))
