@@ -257,7 +257,7 @@
 (use-package beacon
   :custom
   (beacon-color "#f1fa8c")
-p  :config
+  :config
   (beacon-mode 1))
 
 ;; rainbow-delimiters
