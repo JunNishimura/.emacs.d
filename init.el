@@ -259,3 +259,8 @@
   (beacon-color "#f1fa8c")
   :config
   (beacon-mode 1))
+
+;; rainbow-delimiters
+(use-package rainbow-delimiters
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
