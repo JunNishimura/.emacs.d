@@ -288,3 +288,15 @@
 
 ;; truncate-lines
 (global-set-key (kbd "C-c C-l") 'toggle-truncate-lines)
+
+;; paren
+(use-package paren
+  :ensure nil
+  :hook
+  (after-init . show-paren-mode)
+  :custom-face
+  (show-paren-math ((nil (:background "#44475a" :foreground "#f1fa8c"))))
+  :custom
+  (show-paren-style 'mixed)
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t))
