@@ -281,6 +281,10 @@
        (:background "#555555555555"))
       (t (:background "#C5C8C6C8C8C6"))) :group 'minimap)))
 
+;; golden-ratio
 (use-package golden-ratio
   :config
   (golden-ratio-mode 1))
+
+;; truncate-lines
+(global-set-key (kbd "C-c C-l") 'toggle-truncate-lines)
