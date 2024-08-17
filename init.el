@@ -13,7 +13,7 @@
 (tool-bar-mode -1) ;; hide tool bar
 (scroll-bar-mode -1) ;; hide scroll bar
 
-;; make emacs fullscreen when to open
+;; make emacs fullsxcreen when to open
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 ;; semitransparent the screen
@@ -115,29 +115,36 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-;; lsp-mode
-(use-package lsp-mode)
-(use-package lsp-ui
-  :config
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-doc-header t)
-  (setq lsp-ui-doc-include-signature t)
-  (setq lsp-ui-doc-max-width 150)
-  (setq lsp-ui-doc-max-height 30)
-  (setq lsp-ui-peek-enable t)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+;; eglot
+(require 'project)
+(defun project-find-go-module (dir)
+  (when-let ((root (locate-dominating-file dir "go.mod")))
+    (cons 'go-module root)))
+(cl-defmethod project-root ((project (head go-module)))
+  (cdr project))
+(add-hook 'project-find-functions #'project-find-go-module)
 
-;; go-mode
-(defun go-mode-omnibus ()
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (if (not (string-match "go" compile-command))
-      (set (make-local-variable 'compile-command)
-	   "go build -v && go test -v && go vet")))
-(use-package go-mode
-  :hook
-  (go-mode . lsp-deferred)
-  (go-mode . go-mode-omnibus))
+;; Optional: load other packages before eglot to enable eglot integrations.
+(require 'yasnippet)
+(require 'go-mode)
+(require 'eglot)
+(add-hook 'go-mode-hook 'eglot-ensure)
+
+;; Optional: install eglot-format-buffer as a save hook.
+;; The depth of -10 places this before eglot's willSave notification,
+;; so that that notification reports the actual contents that will be saved.
+(defun eglot-format-buffer-before-save ()
+  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+(add-hook 'go-mode-hook #'eglot-format-buffer-before-save)
+
+(setq-default eglot-workspace-configuration
+    '((:gopls .
+        ((staticcheck . t)
+         (matcher . "CaseSensitive")))))
+(add-hook 'before-save-hook
+    (lambda ()
+        (call-interactively 'eglot-code-action-organize-imports))
+    nil t)
 
 ;; slime
 (use-package slime
