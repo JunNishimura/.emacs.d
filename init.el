@@ -129,6 +129,7 @@
 (require 'go-mode)
 (require 'eglot)
 (add-hook 'go-mode-hook 'eglot-ensure)
+(add-hook 'rust-mode-hook 'eglot-ensure)
 
 ;; Optional: install eglot-format-buffer as a save hook.
 ;; The depth of -10 places this before eglot's willSave notification,
@@ -145,6 +146,15 @@
     (lambda ()
         (call-interactively 'eglot-code-action-organize-imports))
     nil t)
+
+;; rust-analyzer
+(add-to-list 'eglot-server-programs
+             '((rust-ts-mode rust-mode) .
+               ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
+(defun my/find-rust-project-root (dir)                                                                            (when-let ((root (locate-dominating-file dir "Cargo.toml")))                                                     (list 'vc 'Git root)))
+(defun my/rust-mode-hook ()
+  (setq-local project-find-functions (list #'my/find-rust-project-root)))
+(add-hook 'rust-mode-hook #'my/rust-mode-hook)
 
 ;; slime
 (use-package slime
