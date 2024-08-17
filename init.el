@@ -13,7 +13,7 @@
 (tool-bar-mode -1) ;; hide tool bar
 (scroll-bar-mode -1) ;; hide scroll bar
 
-;; make emacs fullsxcreen when to open
+;; make emacs fullscreen when to open
 (set-frame-parameter nil 'fullscreen 'maximized)
 
 ;; semitransparent the screen
