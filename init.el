@@ -13,6 +13,11 @@
 (tool-bar-mode -1) ;; hide tool bar
 (scroll-bar-mode -1) ;; hide scroll bar
 
+;; tab setting
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (setq indent-tabs-mode t)))
+
 ;; make emacs fullscreen when to open
 (set-frame-parameter nil 'fullscreen 'maximized)
 
