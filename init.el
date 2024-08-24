@@ -107,7 +107,14 @@
 ;; point-undo
 (use-package point-undo
   :bind (("M-[" . point-undo)
-         ("M-]" . point-redo)))
+         ("M-]" . point-redo))
+  :config
+  ;; all-indent
+  (global-set-key (kbd "C-x C-]") '(lambda ()
+				     (interactive)
+				     (mark-whole-buffer)
+				     (indent-region (region-beginning) (region-end))
+				     (point-undo))))
 
 ;; company
 (use-package company
@@ -144,19 +151,21 @@
 (add-hook 'go-mode-hook #'eglot-format-buffer-before-save)
 
 (setq-default eglot-workspace-configuration
-    '((:gopls .
-        ((staticcheck . t)
-         (matcher . "CaseSensitive")))))
+	      '((:gopls .
+			((staticcheck . t)
+			 (matcher . "CaseSensitive")))))
 (add-hook 'before-save-hook
-    (lambda ()
-        (call-interactively 'eglot-code-action-organize-imports))
-    nil t)
+	  (lambda ()
+            (call-interactively 'eglot-code-action-organize-imports))
+	  nil t)
 
 ;; rust-analyzer
 (add-to-list 'eglot-server-programs
              '((rust-ts-mode rust-mode) .
                ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
-(defun my/find-rust-project-root (dir)                                                                            (when-let ((root (locate-dominating-file dir "Cargo.toml")))                                                     (list 'vc 'Git root)))
+(defun my/find-rust-project-root (dir)
+  (when-let ((root (locate-dominating-file dir "Cargo.toml")))
+    (list 'vc 'Git root)))
 (defun my/rust-mode-hook ()
   (setq-local project-find-functions (list #'my/find-rust-project-root)))
 (add-hook 'rust-mode-hook #'my/rust-mode-hook)
@@ -188,12 +197,12 @@
   (setq mtg-path (concat org-directory "/Inbox/mtg.org"))
   (setq proj-path (concat org-directory "/Projects/kintai-performance.org"))
   (setq org-capture-templates
-	       '(("t" "Todo" entry (file+headline todo-path "Tasks")
-		 "** TODO %^{Task Title} [/]\n DEADLINE: %^t\n %?\n")
-		 ("m" "Meeting" entry (file+headline mtg-path "Meetings")
-		  "** %^{Meeting Title} %^g\n %U\n")
-		 ("p" "Project" entry (file+headline proj-path "Memo")
-		  "** %^{Project Title} %^g\n")))
+	'(("t" "Todo" entry (file+headline todo-path "Tasks")
+	   "** TODO %^{Task Title} [/]\n DEADLINE: %^t\n %?\n")
+	  ("m" "Meeting" entry (file+headline mtg-path "Meetings")
+	   "** %^{Meeting Title} %^g\n %U\n")
+	  ("p" "Project" entry (file+headline proj-path "Memo")
+	   "** %^{Project Title} %^g\n")))
   (setq org-agenda-files (list todo-path mtg-path proj-path))
   (defun show-todo-buffer (file)
     (interactive)
@@ -206,7 +215,7 @@
 
 ;; window-move
 (defun counter-other-window ()
- (interactive)
+  (interactive)
   (other-window -1))
 (global-set-key (kbd "C-;") 'other-window)
 (global-set-key (kbd "C-:") 'counter-other-window)
@@ -235,13 +244,13 @@
   (setq dashboard-center-content t)
   (setq dashboard-vertically-center-content t)
   (setq dashboard-items '((recents  . 5)
-		     (bookmarks . 5)
-		     (projects . 5)
-		     (agenda . 5)))
+			  (bookmarks . 5)
+			  (projects . 5)
+			  (agenda . 5)))
   (setq dashboard-item-shortcuts '((recents . "r")
-			      (bookmarks . "b")
-			      (projects . "p")
-			      (agenda . "a")))
+				   (bookmarks . "b")
+				   (projects . "p")
+				   (agenda . "a")))
   (setq dashboard-icon-type 'all-the-icons)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t))
@@ -254,7 +263,7 @@
   (moody-replace-vc-mode)
   (setq x-underline-at-descent-line t)
   (when (eq system-type 'darwin)
-  (setq moody-slant-function 'moody-slant-apple-rgb)))
+    (setq moody-slant-function 'moody-slant-apple-rgb)))
 (use-package minions
   :config
   (minions-mode)
