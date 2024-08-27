@@ -107,14 +107,13 @@
 ;; point-undo
 (use-package point-undo
   :bind (("M-[" . point-undo)
-         ("M-]" . point-redo))
-  :config
-  ;; all-indent
-  (global-set-key (kbd "C-x C-]") '(lambda ()
-				     (interactive)
-				     (mark-whole-buffer)
-				     (indent-region (region-beginning) (region-end))
-				     (point-undo))))
+         ("M-]" . point-redo)))
+(defun all-indent ()
+  (interactive)
+  (mark-whole-buffer)
+  (indent-region (region-beginning) (region-end))
+  (point-undo))
+(global-set-key (kbd "C-x C-]") 'all-indent)
 
 ;; company
 (use-package company
