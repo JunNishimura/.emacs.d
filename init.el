@@ -32,7 +32,7 @@
 (setq-default indicate-buffer-boundaries 'left)
 
 ;; theme
-(setq my-theme (list 'gruvbox-dark-medium 'nord 'dracula))
+(setq my-theme (list 'dracula 'gruvbox-dark-medium 'nord))
 (defun toggle-theme ()
   (interactive)
   (disable-theme (car my-theme))
