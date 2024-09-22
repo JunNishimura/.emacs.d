@@ -169,6 +169,15 @@
   (setq-local project-find-functions (list #'my/find-rust-project-root)))
 (add-hook 'rust-mode-hook #'my/rust-mode-hook)
 
+;; yaml-mode
+(defun my/yaml-mode-hook ()
+  (setq-local tab-width 2))
+(use-package yaml-mode
+  :mode "\\.ya?ml\\'"
+  :ensure t
+  :hook
+  (yaml-mode . my/yaml-mode-hook))
+
 ;; slime
 (use-package slime
   :if (file-exists-p "~/.roswell/helper.el")
